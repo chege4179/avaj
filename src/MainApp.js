@@ -9,13 +9,33 @@ import SignUpScreen from "./screens/SignUpScreen";
 import WelcomeScreen from "./screens/WelcomeScreen";
 import SplashScreen from "./screens/SplashScreen";
 import {createNativeStackNavigator} from "@react-navigation/native-stack";
-
+import {useDispatch, useSelector} from "react-redux";
+import {SelectUser} from "./ReduxStore/UserReducer";
+import AsyncStorage from "@react-native-async-storage/async-storage";
+import {UserActions} from "./ReduxStore/UserConstants";
+import HomeScreen from "./screens/HomeScreen";
 
 const Stack = createNativeStackNavigator()
 
 const MainApp = () => {
+	const user = useSelector(SelectUser)
 	const [isVisible,setIsVisible] = useState(true)
+	const dispatch = useDispatch()
+	function getSavedUserData(){
+		AsyncStorage.getItem("user",(err,data) => {
+			if (err){
+
+			}else {
+				const user = JSON.parse(data)
+				dispatch({
+					type:UserActions.LOGIN_SUCCESS,
+					payload:user
+				})
+			}
+		})
+	}
 	useLayoutEffect(() => {
+		getSavedUserData()
 		setTimeout(() => {
 			setIsVisible(false)
 		},2500)
@@ -28,16 +48,26 @@ const MainApp = () => {
 			{
 				isVisible ? (<SplashScreen/>):
 					(
-					<Stack.Navigator initialRouteName={Screens.WELCOME_SCREEN}>
-						<Stack.Screen name={Screens.LOGIN_SCREEN} component={LoginScreen}  options={{
-							headerShown:false
-						}} />
-						<Stack.Screen name={Screens.SIGN_UP_SCREEN} component={SignUpScreen}options={{
-							headerShown:false
-						}} />
-						<Stack.Screen name={Screens.WELCOME_SCREEN} component={WelcomeScreen} options={{
-							headerShown:false
-						}} />
+					<Stack.Navigator>
+						{
+							user === null ? (
+								<>
+									<Stack.Screen name={Screens.WELCOME_SCREEN} component={WelcomeScreen} options={{
+										headerShown:false
+									}} />
+									<Stack.Screen name={Screens.LOGIN_SCREEN} component={LoginScreen}  options={{
+										headerShown:false
+									}} />
+									<Stack.Screen name={Screens.SIGN_UP_SCREEN} component={SignUpScreen}options={{
+										headerShown:false
+									}} />
+								</>
+							):(
+								<Stack.Screen name={Screens.HOME_SCREEN} component={HomeScreen}options={{
+									headerShown:false
+								}} />
+							)
+						}
 					</Stack.Navigator>
 				)
 			}

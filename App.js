@@ -1,13 +1,6 @@
-import React, {useLayoutEffect, useState} from 'react';
+import React from 'react';
 
 import {extendTheme, NativeBaseProvider} from "native-base";
-import {NavigationContainer} from "@react-navigation/native";
-import { createNativeStackNavigator } from "@react-navigation/native-stack";
-import LoginScreen from "./src/screens/LoginScreen";
-import SignUpScreen from "./src/screens/SignUpScreen";
-import WelcomeScreen from "./src/screens/WelcomeScreen";
-import SplashScreen from "./src/screens/SplashScreen";
-import Screens from "./src/Screens";
 import {Provider} from "react-redux";
 import store from "./src/ReduxStore/Store";
 import MainApp from "./src/MainApp";

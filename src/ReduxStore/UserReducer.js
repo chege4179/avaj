@@ -2,12 +2,6 @@ import {UserActions} from "./UserConstants";
 
 const UserReducer = (state = {user:null},action) => {
     switch (action.type){
-        case UserActions.LOGIN_REQUEST:
-            return {
-                loading:true,
-                error:false,
-                user:null,
-            }
 
         case UserActions.LOGIN_SUCCESS:
             return {
@@ -15,12 +9,7 @@ const UserReducer = (state = {user:null},action) => {
                 error: false,
                 user: action.payload
             }
-        case UserActions.LOGIN_FAILED:
-            return {
-                loading: false,
-                error: false,
-                user: action.payload,
-            }
+
         case UserActions.LOGOUT_REQUEST:
             return {
                 loading: true,

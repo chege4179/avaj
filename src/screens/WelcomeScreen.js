@@ -6,6 +6,7 @@ import {useNavigation} from "@react-navigation/native";
 import Screens from "../Screens";
 
 const WelcomeScreen = () => {
+
 	const navigation = useNavigation()
 	const GoToLoginScreen = () => {
 		navigation.navigate(Screens.LOGIN_SCREEN)
