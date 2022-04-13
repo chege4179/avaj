@@ -34,11 +34,7 @@ const WelcomeScreen = () => {
 			<VStack
 				width="100%"
 				space="sm"
-
 				padding={10}
-
-
-
 			>
 				<Button
 					bg="primary.900"

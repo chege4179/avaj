@@ -14,62 +14,78 @@ import {SelectUser} from "./ReduxStore/UserReducer";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import {UserActions} from "./ReduxStore/UserConstants";
 import HomeScreen from "./screens/HomeScreen";
+import BottomNavigator from "./screens/BottomNavigator";
+import ProfileScreen from "./screens/ProfileScreen";
 
 const Stack = createNativeStackNavigator()
 
 const MainApp = () => {
 	const user = useSelector(SelectUser)
-	const [isVisible,setIsVisible] = useState(true)
+	const [isVisible, setIsVisible] = useState(true)
 	const dispatch = useDispatch()
-	function getSavedUserData(){
-		AsyncStorage.getItem("user",(err,data) => {
-			if (err){
 
-			}else {
+	function getSavedUserData() {
+		AsyncStorage.getItem("user", (err, data) => {
+			if (err) {
+
+			} else {
 				const user = JSON.parse(data)
 				dispatch({
-					type:UserActions.LOGIN_SUCCESS,
-					payload:user
+					type: UserActions.LOGIN_SUCCESS,
+					payload: user
 				})
 			}
 		})
 	}
+
 	useLayoutEffect(() => {
 		getSavedUserData()
 		setTimeout(() => {
 			setIsVisible(false)
-		},2500)
+		}, 2500)
 		return () => {
-
+			setIsVisible(true)
 		}
-	},[])
+	}, [])
 	return (
 		<NavigationContainer>
 			{
-				isVisible ? (<SplashScreen/>):
+				isVisible ? (<SplashScreen/>) :
 					(
-					<Stack.Navigator>
-						{
-							user === null ? (
-								<>
-									<Stack.Screen name={Screens.WELCOME_SCREEN} component={WelcomeScreen} options={{
-										headerShown:false
-									}} />
-									<Stack.Screen name={Screens.LOGIN_SCREEN} component={LoginScreen}  options={{
-										headerShown:false
-									}} />
-									<Stack.Screen name={Screens.SIGN_UP_SCREEN} component={SignUpScreen}options={{
-										headerShown:false
-									}} />
-								</>
-							):(
-								<Stack.Screen name={Screens.HOME_SCREEN} component={HomeScreen}options={{
-									headerShown:false
-								}} />
-							)
-						}
-					</Stack.Navigator>
-				)
+						<Stack.Navigator>
+							{
+								user === null ? (
+									<>
+										<Stack.Screen name={Screens.WELCOME_SCREEN} component={WelcomeScreen}
+												    options={{
+													    headerShown: false
+												    }}/>
+										<Stack.Screen name={Screens.LOGIN_SCREEN} component={LoginScreen}
+												    options={{
+													    headerShown: false
+												    }}/>
+										<Stack.Screen name={Screens.SIGN_UP_SCREEN} component={SignUpScreen}
+												    options={{
+													    headerShown: false
+												    }}/>
+									</>
+								) : (
+									<>
+										<Stack.Screen name={Screens.HOME_STACK} component={BottomNavigator}
+												    options={{
+													    headerShown: false
+												    }}/>
+										<Stack.Screen name={Screens.PROFILE_SCREEN} component={ProfileScreen}
+												    options={{
+													    headerShown: false
+												    }}/>
+									</>
+
+
+								)
+							}
+						</Stack.Navigator>
+					)
 			}
 		</NavigationContainer>
 

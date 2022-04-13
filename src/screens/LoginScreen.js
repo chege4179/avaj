@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from 'react';
-import {Box, Button, Icon, Input, KeyboardAvoidingView, Text, VStack} from "native-base";
+import {Alert, Box, Button, Icon, Input, KeyboardAvoidingView, Slide, Text, VStack} from "native-base";
 import {useNavigation} from "@react-navigation/native";
 import Screens from "../Screens";
 import MaterialIcons from "react-native-vector-icons/MaterialIcons";
@@ -17,6 +17,7 @@ const LoginScreen = () => {
 	const [showPassword, setShowPassword] = useState(false)
 	const [isLoading,setIsLoading] = useState(false)
 	const [isMsg,setIsMsg] = useState(false)
+
 	const [response,setResponse] = useState({
 		status:"success",
 		msg:"Login success"
@@ -95,6 +96,14 @@ const LoginScreen = () => {
 			alignItems="center"
 			justifyContent="center"
 		>
+			<Slide in={isMsg} placement="top">
+				<Alert justifyContent="center" status={response.status}>
+					<Alert.Icon />
+					<Text color={`${response.status}.600`} fontWeight="medium">
+						{response.msg}
+					</Text>
+				</Alert>
+			</Slide>
 			<VStack
 				display="flex"
 				alignItems="center"
@@ -105,11 +114,7 @@ const LoginScreen = () => {
 				height="100%"
 				padding={5}
 			>
-				{
-					isMsg && (
-						<AlertBox status={response} onClose={onCloseAlertBox}/>
-					)
-				}
+
 				<Controller
 					control={control}
 					rules={{
