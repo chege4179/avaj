@@ -2,39 +2,51 @@ import React from 'react';
 import {Badge, Box, HStack, Slider, Text, VStack} from "native-base";
 import MaterialCommunityIcon from "react-native-paper/src/components/MaterialCommunityIcon";
 import FontAwesome from "react-native-vector-icons/FontAwesome";
+import {TouchableOpacity} from "react-native";
+import {useNavigation} from "@react-navigation/native";
+import Screens from "../Screens";
 
 
 const AccountCategoryCard = () => {
+	const navigation = useNavigation()
+	const GoToAccountScreen =() =>{
+		navigation.navigate(Screens.ACCOUNT_SCREEN)
+	}
 	return (
-		<Box
-			m="2"
-			bg="gray.700"
-			borderRadius="2xl"
-			width="50%"
-		>
-			<VStack
-				space="4"
-				minH={40}
-				p="2"
+
+			<Box
+				m="2"
+				bg="gray.700"
+				borderRadius="2xl"
+				width="50%"
 			>
-				<HStack width="100%">
-					<Box p="0" mx="2" bg="green.400" borderRadius="2xl" width={12} height={12} display="flex" justifyContent="center" alignItems="center">
-						<FontAwesome name="money" size={25}/>
-					</Box>
-					<Box>
-						<Text fontSize={26} c fontWeight="bold">Account </Text>
-					</Box>
-				</HStack>
-				<VStack width="100%">
-					<Text>Fund your account to start placing orders</Text>
-					<Text fontSize={26} c fontWeight="bold"></Text>
-				</VStack>
-				<HStack width="100%" space={2}>
+				<TouchableOpacity onPress={GoToAccountScreen}>
+					<VStack
+						space="4"
+						minH={40}
+						p="2"
+					>
+						<HStack width="100%">
+							<Box p="0" mx="2" bg="green.400" borderRadius="2xl" width={12} height={12} display="flex" justifyContent="center" alignItems="center">
+								<FontAwesome name="money" size={25}/>
+							</Box>
+							<Box>
+								<Text fontSize={26} c fontWeight="bold">Account </Text>
+							</Box>
+						</HStack>
+						<VStack width="100%">
+							<Text>Fund your account to start placing orders</Text>
+							<Text fontSize={26} c fontWeight="bold"></Text>
+						</VStack>
+						<HStack width="100%" space={2}>
 
-				</HStack>
+						</HStack>
 
-			</VStack>
-		</Box>
+					</VStack>
+				</TouchableOpacity>
+			</Box>
+
+
 	);
 };
 

@@ -16,6 +16,8 @@ import {UserActions} from "./ReduxStore/UserConstants";
 import HomeScreen from "./screens/HomeScreen";
 import BottomNavigator from "./screens/BottomNavigator";
 import ProfileScreen from "./screens/ProfileScreen";
+import AccountScreen from "./screens/AccountScreen";
+import AllPharmaciesScreen from "./screens/AllPharmaciesScreen";
 
 const Stack = createNativeStackNavigator()
 
@@ -76,6 +78,14 @@ const MainApp = () => {
 													    headerShown: false
 												    }}/>
 										<Stack.Screen name={Screens.PROFILE_SCREEN} component={ProfileScreen}
+												    options={{
+													    headerShown: false
+												    }}/>
+										<Stack.Screen name={Screens.ACCOUNT_SCREEN} component={AccountScreen}
+												    options={{
+													    headerShown: false
+												    }}/>
+										<Stack.Screen name={Screens.ALL_PHARMACIES_SCREEN} component={AllPharmaciesScreen}
 												    options={{
 													    headerShown: false
 												    }}/>
